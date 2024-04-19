@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Nota do ENEM</title>
+    <style>
+        /* Estilos CSS podem ser adicionados aqui */
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Nota do ENEM</h1>
+
+    <h2>Primeiro Dia</h2>
+    <label for="totalQuestoes">Total de questões da prova:</label>
+    <input type="number" id="totalQuestoes" required><br>
+
+    <label for="questoesHumanas">Questões de humanas:</label>
+    <input type="number" id="questoesHumanas" required><br>
+
+    <label for="questoesAcertadas">Questões acertadas:</label>
+    <input type="number" id="questoesAcertadas" required><br>
+
+    <label for="notaRedacao">Nota da redação:</label>
+    <input type="number" id="notaRedacao" required><br>
+
+    <h2>Segundo Dia</h2>
+    <label for="totalQuestoesSegundoDia">Total de questões da prova:</label>
+    <input type="number" id="totalQuestoesSegundoDia" required><br>
+
+    <label for="questoesAcertadasSegundoDia">Questões acertadas:</label>
+    <input type="number" id="questoesAcertadasSegundoDia" required><br>
+
+    <button onclick="calcularMedia()">Calcular Média</button>
+
+    <div id="resultado"></div>
+<script>
+    function calcularMedia() {
+        var totalQuestoes = parseInt(document.getElementById('totalQuestoes').value);
+        var questoesHumanas = parseInt(document.getElementById('questoesHumanas').value);
+        var questoesAcertadas = parseInt(document.getElementById('questoesAcertadas').value);
+        var notaRedacao = parseFloat(document.getElementById('notaRedacao').value);
+        var totalQuestoesSegundoDia = parseInt(document.getElementById('totalQuestoesSegundoDia').value);
+        var questoesAcertadasSegundoDia = parseInt(document.getElementById('questoesAcertadasSegundoDia').value);
+
+        var notaPrimeiroDia = ((questoesAcertadas / totalQuestoes) * 100 + notaRedacao) / 100;
+        var notaSegundoDia = (questoesAcertadasSegundoDia / totalQuestoesSegundoDia);
+
+        var media = (notaPrimeiroDia + notaSegundoDia) / 2;
+        media = Math.ceil(media * 10) / 10; // Arredonda para cima com uma casa decimal
+        document.getElementById('resultado').innerHTML = "Sua média no ENEM é: " + media.toFixed(1);
+    }
+</script>
+
+</body>
+</html>
