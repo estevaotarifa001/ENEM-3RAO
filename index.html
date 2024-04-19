@@ -1,55 +1,79 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Nota do ENEM</title>
-    <style>
-        /* Estilos CSS podem ser adicionados aqui */
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Nota do ENEM</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
-    <h1>Calculadora de Nota do ENEM</h1>
 
-    <h2>Primeiro Dia</h2>
-    <label for="totalQuestoes">Total de questões da prova:</label>
-    <input type="number" id="totalQuestoes" required><br>
+<div class="container">
+    <h2>Calculadora de Nota do ENEM</h2>
+    <form id="enemForm">
+        <label for="questoesPrimeiroDia">Quantidade de questões no primeiro dia:</label>
+        <input type="number" id="questoesPrimeiroDia" required>
+        <label for="corretasPrimeiroDia">Quantidade de questões corretas no primeiro dia:</label>
+        <input type="number" id="corretasPrimeiroDia" required>
+        
+        <label for="questoesSegundoDia">Quantidade de questões no segundo dia:</label>
+        <input type="number" id="questoesSegundoDia" required>
+        <label for="corretasSegundoDia">Quantidade de questões corretas no segundo dia:</label>
+        <input type="number" id="corretasSegundoDia" required>
+        
+        <label for="notaRedacao">Nota da redação (0 a 1000):</label>
+        <input type="number" id="notaRedacao" min="0" max="1000" required>
+        
+        <input type="submit" value="Calcular">
+    </form>
+</div>
 
-    <label for="questoesHumanas">Questões de humanas:</label>
-    <input type="number" id="questoesHumanas" required><br>
-
-    <label for="questoesAcertadas">Questões acertadas:</label>
-    <input type="number" id="questoesAcertadas" required><br>
-
-    <label for="notaRedacao">Nota da redação:</label>
-    <input type="number" id="notaRedacao" required><br>
-
-    <h2>Segundo Dia</h2>
-    <label for="totalQuestoesSegundoDia">Total de questões da prova:</label>
-    <input type="number" id="totalQuestoesSegundoDia" required><br>
-
-    <label for="questoesAcertadasSegundoDia">Questões acertadas:</label>
-    <input type="number" id="questoesAcertadasSegundoDia" required><br>
-
-    <button onclick="calcularMedia()">Calcular Média</button>
-
-    <div id="resultado"></div>
 <script>
-    function calcularMedia() {
-        var totalQuestoes = parseInt(document.getElementById('totalQuestoes').value);
-        var questoesHumanas = parseInt(document.getElementById('questoesHumanas').value);
-        var questoesAcertadas = parseInt(document.getElementById('questoesAcertadas').value);
-        var notaRedacao = parseFloat(document.getElementById('notaRedacao').value);
-        var totalQuestoesSegundoDia = parseInt(document.getElementById('totalQuestoesSegundoDia').value);
-        var questoesAcertadasSegundoDia = parseInt(document.getElementById('questoesAcertadasSegundoDia').value);
-
-        var notaPrimeiroDia = ((questoesAcertadas / totalQuestoes) * 100 + notaRedacao) / 100;
-        var notaSegundoDia = (questoesAcertadasSegundoDia / totalQuestoesSegundoDia);
-
-        var media = (notaPrimeiroDia + notaSegundoDia) / 2;
-        media = Math.ceil(media * 10) / 10; // Arredonda para cima com uma casa decimal
-        document.getElementById('resultado').innerHTML = "Sua média no ENEM é: " + media.toFixed(1);
-    }
+    document.getElementById('enemForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var questoesPrimeiroDia = parseInt(document.getElementById('questoesPrimeiroDia').value);
+        var corretasPrimeiroDia = parseInt(document.getElementById('corretasPrimeiroDia').value);
+        var questoesSegundoDia = parseInt(document.getElementById('questoesSegundoDia').value);
+        var corretasSegundoDia = parseInt(document.getElementById('corretasSegundoDia').value);
+        var notaRedacao = parseInt(document.getElementById('notaRedacao').value);
+        
+        var media = ((corretasPrimeiroDia / questoesPrimeiroDia) + (corretasSegundoDia / questoesSegundoDia) + (notaRedacao / 1000)) / 3;
+        var arredondamento = Math.round(media * 10) / 10; // arredondando para uma casa decimal
+        
+        alert("Sua média no ENEM é: " + media.toFixed(2) + "\nSua nota de arredondamento é: " + arredondamento.toFixed(1));
+    });
 </script>
 
 </body>
