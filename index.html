@@ -1,79 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Nota do ENEM</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Nota do ENEM</title>
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
     .container {
-        max-width: 500px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+    .input-group {
+      margin-bottom: 15px;
     }
-    input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: none;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
     }
-</style>
+    .input-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .btn-calcular {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .btn-calcular:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Calculadora de Nota do ENEM</h2>
-    <form id="enemForm">
-        <label for="questoesPrimeiroDia">Quantidade de questões no primeiro dia:</label>
-        <input type="number" id="questoesPrimeiroDia" required>
-        <label for="corretasPrimeiroDia">Quantidade de questões corretas no primeiro dia:</label>
-        <input type="number" id="corretasPrimeiroDia" required>
-        
-        <label for="questoesSegundoDia">Quantidade de questões no segundo dia:</label>
-        <input type="number" id="questoesSegundoDia" required>
-        <label for="corretasSegundoDia">Quantidade de questões corretas no segundo dia:</label>
-        <input type="number" id="corretasSegundoDia" required>
-        
-        <label for="notaRedacao">Nota da redação (0 a 1000):</label>
-        <input type="number" id="notaRedacao" min="0" max="1000" required>
-        
-        <input type="submit" value="Calcular">
-    </form>
+  <h2>Calculadora de Nota do ENEM</h2>
+  <div class="input-group">
+    <label for="linguagens">Quantidade de questões de Linguagens e Códigos:</label>
+    <input type="number" id="linguagens" min="0">
+  </div>
+  <div class="input-group">
+    <label for="linguagens-corretas">Questões corretas:</label>
+    <input type="number" id="linguagens-corretas" min="0">
+  </div>
+
+  <div class="input-group">
+    <label for="humanas">Quantidade de questões de Ciências Humanas:</label>
+    <input type="number" id="humanas" min="0">
+  </div>
+  <div class="input-group">
+    <label for="humanas-corretas">Questões corretas:</label>
+    <input type="number" id="humanas-corretas" min="0">
+  </div>
+
+  <div class="input-group">
+    <label for="natureza">Quantidade de questões de Ciências da Natureza:</label>
+    <input type="number" id="natureza" min="0">
+  </div>
+  <div class="input-group">
+    <label for="natureza-corretas">Questões corretas:</label>
+    <input type="number" id="natureza-corretas" min="0">
+  </div>
+
+  <div class="input-group">
+    <label for="matematica">Quantidade de questões de Matemática:</label>
+    <input type="number" id="matematica" min="0">
+  </div>
+  <div class="input-group">
+    <label for="matematica-corretas">Questões corretas:</label>
+    <input type="number" id="matematica-corretas" min="0">
+  </div>
+
+  <div class="input-group">
+    <label for="redacao">Nota da Redação (0 a 1000):</label>
+    <input type="number" id="redacao" min="0" max="1000">
+  </div>
+
+  <button class="btn-calcular" onclick="calcularNota()">Calcular Nota</button>
+
+  <div id="resultado"></div>
 </div>
 
 <script>
-    document.getElementById('enemForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        var questoesPrimeiroDia = parseInt(document.getElementById('questoesPrimeiroDia').value);
-        var corretasPrimeiroDia = parseInt(document.getElementById('corretasPrimeiroDia').value);
-        var questoesSegundoDia = parseInt(document.getElementById('questoesSegundoDia').value);
-        var corretasSegundoDia = parseInt(document.getElementById('corretasSegundoDia').value);
-        var notaRedacao = parseInt(document.getElementById('notaRedacao').value);
-        
-        var media = ((corretasPrimeiroDia / questoesPrimeiroDia) + (corretasSegundoDia / questoesSegundoDia) + (notaRedacao / 1000)) / 3;
-        var arredondamento = Math.round(media * 10) / 10; // arredondando para uma casa decimal
-        
-        alert("Sua média no ENEM é: " + media.toFixed(2) + "\nSua nota de arredondamento é: " + arredondamento.toFixed(1));
-    });
+  function calcularNota() {
+    var linguagens = parseInt(document.getElementById('linguagens').value);
+    var linguagensCorretas = parseInt(document.getElementById('linguagens-corretas').value);
+    var humanas = parseInt(document.getElementById('humanas').value);
+    var humanasCorretas = parseInt(document.getElementById('humanas-corretas').value);
+    var natureza = parseInt(document.getElementById('natureza').value);
+    var naturezaCorretas = parseInt(document.getElementById('natureza-corretas').value);
+    var matematica = parseInt(document.getElementById('matematica').value);
+    var matematicaCorretas = parseInt(document.getElementById('matematica-corretas').value);
+    var redacao = parseInt(document.getElementById('redacao').value);
+
+    var mediaLinguagens = (linguagensCorretas / linguagens) * 1000 || 0;
+    var mediaHumanas = (humanasCorretas / humanas) * 1000 || 0;
+    var mediaNatureza = (naturezaCorretas / natureza) * 1000 || 0;
+    var mediaMatematica = (matematicaCorretas / matematica) * 1000 || 0;
+
+    var mediaTotal = (mediaLinguagens + mediaHumanas + mediaNatureza + mediaMatematica + redacao) / 5;
+
+    var resultado = document.getElementById('resultado');
+    resultado.innerHTML = `
+      <h3>Sua média de notas</h3>
+      <p>Média de Linguagens e Códigos: ${mediaLinguagens.toFixed(2)}</p>
+      <p>Média de Ciências Humanas: ${mediaHumanas.toFixed(2)}</p>
+      <p>Média de Ciências da Natureza: ${mediaNatureza.toFixed(2)}</p>
+      <p>Média de Matemática: ${mediaMatematica.toFixed(2)}</p>
+      <p>Nota da Redação: ${redacao}</p>
+      <p>Média Total: ${mediaTotal.toFixed(2)}</p>
+    `;
+  }
 </script>
 
 </body>
